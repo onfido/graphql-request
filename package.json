@@ -1,6 +1,6 @@
 {
   "name": "@onfido/graphql-request",
-  "version": "0.0.0-dripip",
+  "version": "1.0.0",
   "main": "dist/index.js",
   "files": [
     "dist"
@@ -38,10 +38,7 @@
     "build": "rm -rf dist && tsc -d",
     "test:node": "jest --testEnvironment node",
     "test:dom": "jest --testEnvironment jsdom",
-    "test": "yarn test:node && yarn test:dom",
-    "release:stable": "dripip stable",
-    "release:preview": "dripip preview",
-    "release:pr": "dripip pr"
+    "test": "yarn test:node && yarn test:dom"
   },
   "dependencies": {
     "extract-files": "^9.0.0",
@@ -62,7 +59,6 @@
     "bundlesize": "^0.18.0",
     "cross-fetch": "^3.1.4",
     "doctoc": "^1.4.0",
-    "dripip": "^0.10.0",
     "express": "^4.17.1",
     "fetch-cookie": "^0.10.1",
     "get-port": "^5.1.1",
