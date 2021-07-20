@@ -2,7 +2,7 @@
 
 Minimal GraphQL client supporting Node and browsers for scripts or simple apps
 
-![GitHub Action](https://github.com/prisma-labs/graphql-request/workflows/trunk/badge.svg) [![npm version](https://badge.fury.io/js/graphql-request.svg)](https://badge.fury.io/js/graphql-request)
+![GitHub Action](https://github.com/onfido/graphql-request/workflows/test/badge.svg) [![npm version](https://badge.fury.io/js/%40onfido%2Fgraphql-request.svg)](https://badge.fury.io/js/%40onfido%2Fgraphql-request)
 
 ## Differences to upstream
 
