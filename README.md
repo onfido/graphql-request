@@ -1,8 +1,28 @@
-# graphql-request
+# @onfido/graphql-request
 
 Minimal GraphQL client supporting Node and browsers for scripts or simple apps
 
 ![GitHub Action](https://github.com/prisma-labs/graphql-request/workflows/trunk/badge.svg) [![npm version](https://badge.fury.io/js/graphql-request.svg)](https://badge.fury.io/js/graphql-request)
+
+## Differences to upstream
+
+- `cross-fetch` has been removed and a global `fetch` is now default, making DOM the target and Node secondary.
+  - Reduces overall size of the library.
+  - Node can still function but will require a defined `fetch`
+- `request` and related functions' last argument is now the entire `RequestInit` object rather than just its headers.
+  - That is to simplify many patterns but especially request abortion, for example:
+
+```tsx
+import { GraphQLClient } from 'graphql-request'
+
+const client = new GraphQLClient(endpoint)
+
+function call() {
+  const { abort, signal } = new AbortController()
+  setTimeout(abort, 5000) // abort in 5 seconds
+  return client.request(query, variables, { signal })
+}
+```
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
