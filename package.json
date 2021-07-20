@@ -5,12 +5,6 @@
   "files": [
     "dist"
   ],
-  "bundlesize": [
-    {
-      "path": "./dist/index.js",
-      "maxSize": "15 kB"
-    }
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/onfido/graphql-request.git"
@@ -74,5 +68,11 @@
   "prettier": "@prisma-labs/prettier-config",
   "jest": {
     "preset": "ts-jest"
-  }
+  },
+  "bundlesize": [
+    {
+      "path": "./dist/*.js",
+      "maxSize": "1 kB"
+    }
+  ]
 }
