@@ -2,9 +2,9 @@ import { createReadStream } from 'fs'
 import { FileUpload, GraphQLUpload } from 'graphql-upload'
 import { join } from 'path'
 import { gql, request } from '../src'
-import { createApolloServerContext } from './__helpers'
+import { createApolloServerContext, polyfillFetch } from './__helpers'
 
-const typeDefs = `
+const typeDefs = gql`
   scalar Upload
 
   type Query {
@@ -26,11 +26,11 @@ export const users = [{ id: 1 }, { id: 2 }, { id: 3 }]
 const resolvers = {
   Query: {
     users: () => Promise.resolve(users),
-    user: (source: any, { id }: { id: number }) =>
+    user: (_source: any, { id }: { id: number }) =>
       Promise.resolve(users.find((user) => user.id === id) || null),
   },
   Mutation: {
-    async uploadFile(source: any, { file }: { file: Promise<FileUpload> }) {
+    async uploadFile(_source: any, { file }: { file: Promise<FileUpload> }) {
       const { filename } = await file
       return filename
     },
@@ -40,7 +40,8 @@ const resolvers = {
 
 const ctx = createApolloServerContext({ typeDefs, resolvers })
 
-beforeEach(() => {
+beforeEach(async () => {
+  await polyfillFetch()
   ;(global as any).FormData = undefined
 })
 

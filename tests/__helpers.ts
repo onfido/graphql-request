@@ -1,5 +1,5 @@
 import { ApolloServer } from 'apollo-server-express'
-import body from 'body-parser'
+import { json } from 'body-parser'
 import express, { Application, Request } from 'express'
 import getPort from 'get-port'
 import { graphqlUploadExpress } from 'graphql-upload'
@@ -36,12 +36,21 @@ type MockResult<Spec extends MockSpec> = {
   }[]
 }
 
+export async function polyfillFetch() {
+  if (typeof fetch !== 'function') {
+    const { fetch } = await import('cross-fetch')
+    globalThis.fetch = fetch
+  }
+}
+
 export function setupTestServer() {
   const ctx = {} as Context
   beforeAll(async (done) => {
+    await polyfillFetch()
+
     const port = await getPort()
     ctx.server = express()
-    ctx.server.use(body.json())
+    ctx.server.use(json())
     ctx.nodeServer = createServer()
     ctx.nodeServer.listen({ port })
     ctx.nodeServer.on('request', ctx.server)
@@ -112,7 +121,7 @@ export function createApolloServerContext({ typeDefs, resolvers }: ApolloServerC
   })
 
   afterEach(async () => {
-    await new Promise((res, rej) => {
+    await new Promise<void>((res, rej) => {
       ctx.server.close((e) => (e ? rej(e) : res()))
     })
   })

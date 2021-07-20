@@ -1,11 +1,10 @@
-import * as CrossFetch from 'cross-fetch'
-import * as Dom from '../src/types.dom'
+import { Headers as CrossFetchHeaders } from 'cross-fetch'
 import { GraphQLClient, request } from '../src'
 import { setupTestServer } from './__helpers'
 
 const ctx = setupTestServer()
 // Headers not defined globally in Node
-const H = typeof Headers === 'undefined' ? CrossFetch.Headers : Headers
+const H = typeof Headers === 'function' ? Headers : CrossFetchHeaders
 
 describe('using class', () => {
   test('.setHeader() sets a header that get sent to server', async () => {
@@ -44,16 +43,15 @@ describe('using class', () => {
     describe.each([
       [new H({ 'x-request-foo': 'request-bar' })],
       [{ 'x-request-foo': 'request-bar' }],
-      [[['x-request-foo', 'request-bar']]]
-    ])('request unique header with request', (headerCase: Dom.RequestInit['headers']) => {
-      
+      [[['x-request-foo', 'request-bar']]],
+    ])('request unique header with request', (headers: RequestInit['headers']) => {
       test('with request method', async () => {
         const client = new GraphQLClient(ctx.url)
 
         client.setHeaders(new H({ 'x-foo': 'bar' }))
         const mock = ctx.res()
-        await client.request(`{ me { id } }`, {}, headerCase)
-  
+        await client.request(`{ me { id } }`, {}, { headers })
+
         expect(mock.requests[0].headers['x-foo']).toEqual('bar')
         expect(mock.requests[0].headers['x-request-foo']).toEqual('request-bar')
       })
@@ -63,34 +61,33 @@ describe('using class', () => {
 
         client.setHeaders(new H({ 'x-foo': 'bar' }))
         const mock = ctx.res()
-        await client.rawRequest(`{ me { id } }`, {}, headerCase)
-  
+        await client.rawRequest(`{ me { id } }`, {}, { headers })
+
         expect(mock.requests[0].headers['x-foo']).toEqual('bar')
         expect(mock.requests[0].headers['x-request-foo']).toEqual('request-bar')
       })
     })
-  
+
     describe.each([
       [new H({ 'x-foo': 'request-bar' })],
       [{ 'x-foo': 'request-bar' }],
-      [[['x-foo', 'request-bar']]]
-    ])('request header overriding the client header', (headerCase: Dom.RequestInit['headers']) => {
+      [[['x-foo', 'request-bar']]],
+    ])('request header overriding the client header', (headers: RequestInit['headers']) => {
       test('with request method', async () => {
         const client = new GraphQLClient(ctx.url)
         client.setHeader('x-foo', 'bar')
         const mock = ctx.res()
-        await client.request(`{ me { id } }`, {}, headerCase);
+        await client.request(`{ me { id } }`, {}, { headers })
         expect(mock.requests[0].headers['x-foo']).toEqual('request-bar')
-      });
+      })
 
       test('with rawRequest method', async () => {
         const client = new GraphQLClient(ctx.url)
         client.setHeader('x-foo', 'bar')
         const mock = ctx.res()
-        await client.rawRequest(`{ me { id } }`, {}, headerCase);
+        await client.rawRequest(`{ me { id } }`, {}, { headers })
         expect(mock.requests[0].headers['x-foo']).toEqual('request-bar')
-      });
-
+      })
     })
   })
 })
@@ -99,13 +96,13 @@ describe('using request function', () => {
   describe.each([
     [new H({ 'x-request-foo': 'request-bar' })],
     [{ 'x-request-foo': 'request-bar' }],
-    [[['x-request-foo', 'request-bar']]]
-  ])('request unique header with request', (headerCase: Dom.RequestInit['headers']) => {
+    [[['x-request-foo', 'request-bar']]],
+  ])('request unique header with request', (headers: RequestInit['headers']) => {
     test('sets header', async () => {
       const mock = ctx.res()
-      await request(ctx.url, `{ me { id } }`, {}, headerCase)
+      await request(ctx.url, `{ me { id } }`, {}, { headers })
 
       expect(mock.requests[0].headers['x-request-foo']).toEqual('request-bar')
-    });
+    })
   })
 })

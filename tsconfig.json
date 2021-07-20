@@ -1,16 +1,24 @@
 {
+  "include": ["src"],
+  "exclude": ["node_modules"],
   "compilerOptions": {
-    "lib": ["es2015"],
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
     "outDir": "dist",
     "rootDir": "src",
-    "sourceMap": true,
+
+    "module": "esnext",
+    "moduleResolution": "node",
+    "target": "es2019",
+    "lib": ["esnext", "dom"],
+
+    "alwaysStrict": true,
     "declaration": true,
-    "strict": true,
-    "target": "es5"
-  },
-  "exclude": ["node_modules"],
-  "include": ["src"]
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "skipLibCheck": false,
+    "sourceMap": true,
+    "strict": true
+  }
 }
