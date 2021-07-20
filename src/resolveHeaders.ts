@@ -16,7 +16,7 @@ export function resolveHeaders(headers: RequestInit['headers']): Record<string, 
 }
 
 const isHeaderInstance = (headers: RequestInit['headers']): headers is Headers =>
-  typeof Headers === 'function' && headers instanceof Headers
+  typeof headers === 'object' && 'append' in headers
 
 /**
  * Convert Headers instance into regular object

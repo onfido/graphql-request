@@ -7,9 +7,9 @@ export async function rawRequest<T = any, V = Variables>(
   url: string,
   query: string,
   variables?: V,
-  requestInit: Init = {}
+  init: Init = {}
 ): Promise<{ data: T; extensions?: any; headers: Headers; status: number }> {
-  const { headers, fetch: localFetch = fetch, ...rest } = requestInit
+  const { headers, fetch: localFetch = fetch, ...rest } = init
   const body = createRequestBody(query, variables)
 
   const response = await localFetch(url, {

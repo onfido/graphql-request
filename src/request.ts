@@ -40,10 +40,10 @@ export async function request<T = any, V = Variables>(
   url: string,
   document: RequestDocument,
   variables?: V,
-  requestInit?: Init
+  init?: Init
 ): Promise<T> {
   const query = resolveRequestDocument(document)
-  const { data } = await rawRequest<T, V>(url, query, variables, requestInit)
+  const { data } = await rawRequest<T, V>(url, query, variables, init)
   return data
 }
 
