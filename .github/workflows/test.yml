@@ -30,4 +30,5 @@ jobs:
             ${{ runner.os }}-yarn-
       - run: yarn install
       - run: yarn build
+      - run: yarn bundlesize
       - run: yarn test:${{ matrix.environment }}
