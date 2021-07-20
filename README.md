@@ -7,14 +7,13 @@ Minimal GraphQL client supporting Node and browsers for scripts or simple apps
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [Features](#features)
 - [Install](#install)
 - [Quickstart](#quickstart)
 - [Usage](#usage)
 - [Node Version Support](#node-version-support)
 - [Community](#community)
-    - [GraphQL Code Generator's GraphQL-Request TypeScript Plugin](#graphql-code-generators-graphql-request-typescript-plugin)
+  - [GraphQL Code Generator's GraphQL-Request TypeScript Plugin](#graphql-code-generators-graphql-request-typescript-plugin)
 - [Examples](#examples)
   - [Authentication via HTTP header](#authentication-via-http-header)
     - [Incrementally setting headers](#incrementally-setting-headers)
@@ -31,9 +30,9 @@ Minimal GraphQL client supporting Node and browsers for scripts or simple apps
     - [Browser](#browser)
     - [Node](#node)
 - [FAQ](#faq)
-    - [Why do I have to install `graphql`?](#why-do-i-have-to-install-graphql)
-    - [Do I need to wrap my GraphQL documents inside the `gql` template exported by `graphql-request`?](#do-i-need-to-wrap-my-graphql-documents-inside-the-gql-template-exported-by-graphql-request)
-    - [What's the difference between `graphql-request`, Apollo and Relay?](#whats-the-difference-between-graphql-request-apollo-and-relay)
+  - [Why do I have to install `graphql`?](#why-do-i-have-to-install-graphql)
+  - [Do I need to wrap my GraphQL documents inside the `gql` template exported by `graphql-request`?](#do-i-need-to-wrap-my-graphql-documents-inside-the-gql-template-exported-by-graphql-request)
+  - [What's the difference between `graphql-request`, Apollo and Relay?](#whats-the-difference-between-graphql-request-apollo-and-relay)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -150,14 +149,13 @@ client.setHeader('authorization', 'Bearer MY_TOKEN')
 // Override all existing headers
 client.setHeaders({
   authorization: 'Bearer MY_TOKEN',
-  anotherheader: 'header_value'
+  anotherheader: 'header_value',
 })
 ```
 
 #### passing-headers-in-each-request
 
 It is possible to pass custom headers for each request. `request()` and `rawRequest()` accept a header object as the third parameter
-
 
 ```js
 import { GraphQLClient } from 'graphql-request'
@@ -180,7 +178,7 @@ const variables = {
 }
 
 const requestHeaders = {
-  authorization: 'Bearer MY_TOKEN'
+  authorization: 'Bearer MY_TOKEN',
 }
 
 // Overrides the clients headers with the passed values
