@@ -18,8 +18,9 @@ import { GraphQLClient } from 'graphql-request'
 const client = new GraphQLClient(endpoint)
 
 function call() {
-  const { abort, signal } = new AbortController()
-  setTimeout(abort, 5000) // abort in 5 seconds
+  const controller = new AbortController()
+  const { signal } = controller
+  setTimeout(() => controller.abort(), 5000) // abort in 5 seconds
   return client.request(query, variables, { signal })
 }
 ```
