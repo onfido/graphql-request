@@ -1,4 +1,4 @@
-import { print } from 'graphql'
+import { print } from 'graphql/language/printer'
 import { rawRequest } from './rawRequest'
 import { Init, RequestDocument, Variables } from './types'
 
